@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>آگهی ملک — نمونه</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 id="title">آگهی ملک</h1>
+      <p id="subtitle">توضیحات کوتاه</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="gallery">
+      <button id="prev" aria-label="عکس قبلی">‹</button>
+      <img id="mainImage" src="https://via.placeholder.com/800x600?text=%D8%AA%D8%B5%D9%88%DB%8C%D8%B1" alt="عکس ملک">
+      <button id="next" aria-label="عکس بعدی">›</button>
+    </section>
+
+    <section class="details">
+      <h2>مشخصات</h2>
+      <ul class="props">
+        <li><strong>آدرس / محله:</strong> <span id="address"></span></li>
+        <li><strong>قیمت:</strong> <span id="price"></span></li>
+        <li><strong>متراژ:</strong> <span id="area"></span> متر مربع</li>
+        <li><strong>تعداد اتاق:</strong> <span id="rooms"></span></li>
+        <li><strong>وضعیت:</strong> <span id="status"></span></li>
+        <li><strong>امکانات:</strong> <span id="features"></span></li>
+        <li><strong>شناسه داخلی:</strong> <span id="id"></span></li>
+      </ul>
+
+      <h3>توضیحات کامل</h3>
+      <p id="description"></p>
+
+      <div class="contact">
+        <h3>تماس</h3>
+        <p id="contactName"></p>
+        <p><a id="telLink" href="#"></a></p>
+        <p><a id="emailLink" href="#"></a></p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">این یک سایت نمونه است — برای جایگزینی داده‌ها، بخش propertyData در پایین صفحه را ویرایش کنید.</div>
+  </footer>
+
+  <script>
+    // --- نمونه داده آگهی: این را با دادهٔ خودتان جایگزین کنید ---
+    const propertyData = {
+      title: "آپارتمان 3 خوابه در مرکز شهر",
+      subtitle: "نزدیک مترو، مناسب خانواده",
+      images: [
+        "https://via.placeholder.com/1200x800?text=%D8%AA%D8%B5%D9%88%DB%8C%D8%B1+1",
+        "https://via.placeholder.com/1200x800?text=%D8%AA%D8%B5%D9%88%DB%8C%D8%B1+2",
+        "https://via.placeholder.com/1200x800?text=%D8%AA%D8%B5%D9%88%DB%8C%D8%B1+3"
+      ],
+      address: "خیابان نمونه، محلهٔ مرکزی",
+      price: "۳,۵۰۰,۰۰۰,۰۰۰ تومان",
+      area: 110,
+      rooms: 3,
+      status: "فروش",
+      features: ["پارکینگ", "آسانسور", "بالکن"],
+      id: "PROP-001",
+      description: "این آپارتمان در یک برج تازه‌ساز قرار دارد و دید مناسب، نورگیری عالی و دسترسی به مترو را ارائه می‌دهد.",
+      contact: {
+        name: "نام تماس: محمد رضایی",
+        phone: "+98-912-000-0000",
+        email: "example@example.com"
+      }
+    };
+
+    // --- کد برای نمایش داده‌ها ---
+    const state = { currentImageIndex: 0 };
+
+    function render() {
+      document.getElementById('title').textContent = propertyData.title;
+      document.getElementById('subtitle').textContent = propertyData.subtitle;
+      document.getElementById('address').textContent = propertyData.address;
+      document.getElementById('price').textContent = propertyData.price;
+      document.getElementById('area').textContent = propertyData.area;
+      document.getElementById('rooms').textContent = propertyData.rooms;
+      document.getElementById('status').textContent = propertyData.status;
+      document.getElementById('features').textContent = propertyData.features.join(' • ');
+      document.getElementById('id').textContent = propertyData.id;
+      document.getElementById('description').textContent = propertyData.description;
+      document.getElementById('contactName').textContent = propertyData.contact.name;
+
+      const telLink = document.getElementById('telLink');
+      telLink.href = 'tel:' + propertyData.contact.phone.replace(/\s+/g, '');
+      telLink.textContent = propertyData.contact.phone;
+
+      const emailLink = document.getElementById('emailLink');
+      emailLink.href = 'mailto:' + propertyData.contact.email;
+      emailLink.textContent = propertyData.contact.email;
+
+      const img = document.getElementById('mainImage');
+      img.src = propertyData.images[state.currentImageIndex] || '';
+    }
+
+    document.getElementById('prev').addEventListener('click', () => {
+      state.currentImageIndex = (state.currentImageIndex - 1 + propertyData.images.length) % propertyData.images.length;
+      render();
+    });
+    document.getElementById('next').addEventListener('click', () => {
+      state.currentImageIndex = (state.currentImageIndex + 1) % propertyData.images.length;
+      render();
+    });
+
+    // initial render
+    render();
+  </script>
+</body>
+</html>
