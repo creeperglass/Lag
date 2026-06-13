@@ -1,119 +1,161 @@
-<!doctype html>
-<html lang="fa" dir="rtl">
+<!DOCTYPE html>
+<html lang="fa">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>آگهی ملک — نمونه</title>
-  <link rel="stylesheet" href="assets/styles.css">
+<meta charset="UTF-8">
+<title>سازنده متن فوق سنگین</title>
+
+<style>
+body{
+    background:#0b0b14;
+    color:white;
+    font-family:tahoma;
+    text-align:center;
+    padding:20px;
+}
+
+.box{
+    max-width:650px;
+    margin:auto;
+    background:#1c1c2e;
+    padding:20px;
+    border-radius:15px;
+}
+
+textarea{
+    width:100%;
+    height:80px;
+}
+
+input[type=range]{
+    width:100%;
+}
+
+button{
+    padding:10px;
+    margin:5px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+#output{
+    margin-top:15px;
+    background:black;
+    padding:10px;
+    min-height:120px;
+    white-space:pre-wrap;
+    font-size:14px;
+}
+</style>
 </head>
+
 <body>
-  <header class="site-header">
-    <div class="container">
-      <h1 id="title">آگهی ملک</h1>
-      <p id="subtitle">توضیحات کوتاه</p>
-    </div>
-  </header>
 
-  <main class="container">
-    <section class="gallery">
-      <button id="prev" aria-label="عکس قبلی">‹</button>
-      <img id="mainImage" src="https://via.placeholder.com/800x600?text=%D8%AA%D8%B5%D9%88%DB%8C%D8%B1" alt="عکس ملک">
-      <button id="next" aria-label="عکس بعدی">›</button>
-    </section>
+<div class="box">
 
-    <section class="details">
-      <h2>مشخصات</h2>
-      <ul class="props">
-        <li><strong>آدرس / محله:</strong> <span id="address"></span></li>
-        <li><strong>قیمت:</strong> <span id="price"></span></li>
-        <li><strong>متراژ:</strong> <span id="area"></span> متر مربع</li>
-        <li><strong>تعداد اتاق:</strong> <span id="rooms"></span></li>
-        <li><strong>وضعیت:</strong> <span id="status"></span></li>
-        <li><strong>امکانات:</strong> <span id="features"></span></li>
-        <li><strong>شناسه داخلی:</strong> <span id="id"></span></li>
-      </ul>
+<h2>⚡ متن‌ساز فوق فشرده</h2>
 
-      <h3>توضیحات کامل</h3>
-      <p id="description"></p>
+<textarea id="text" placeholder="شعار ��و بنویس"></textarea>
 
-      <div class="contact">
-        <h3>تماس</h3>
-        <p id="contactName"></p>
-        <p><a id="telLink" href="#"></a></p>
-        <p><a id="emailLink" href="#"></a></p>
-      </div>
-    </section>
+<br>
 
-  </main>
+<label>طول متن: <span id="l1">50</span></label>
+<input type="range" min="10" max="500" value="50" id="len">
 
-  <footer class="site-footer">
-    <div class="container">این یک سایت نمونه است — برای جایگزینی داده‌ها، بخش propertyData در پایین صفحه را ویرایش کنید.</div>
-  </footer>
+<label>تعداد کاراکتر: <span id="c1">500</span></label>
+<input type="range" min="10" max="20000" value="500" id="chars">
 
-  <script>
-    // --- نمونه داده آگهی: این را با دادهٔ خودتان جایگزین کنید ---
-    const propertyData = {
-      title: "آپارتمان 3 خوابه در مرکز شهر",
-      subtitle: "نزدیک مترو، مناسب خانواده",
-      images: [
-        "https://via.placeholder.com/1200x800?text=%D8%AA%D8%B5%D9%88%DB%8C%D8%B1+1",
-        "https://via.placeholder.com/1200x800?text=%D8%AA%D8%B5%D9%88%DB%8C%D8%B1+2",
-        "https://via.placeholder.com/1200x800?text=%D8%AA%D8%B5%D9%88%DB%8C%D8%B1+3"
-      ],
-      address: "خیابان نمونه، محلهٔ مرکزی",
-      price: "۳,۵۰۰,۰۰۰,۰۰۰ تومان",
-      area: 110,
-      rooms: 3,
-      status: "فروش",
-      features: ["پارکینگ", "آسانسور", "بالکن"],
-      id: "PROP-001",
-      description: "این آپارتمان در یک برج تازه‌ساز قرار دارد و دید مناسب، نورگیری عالی و دسترسی به مترو را ارائه می‌دهد.",
-      contact: {
-        name: "نام تماس: محمد رضایی",
-        phone: "+98-912-000-0000",
-        email: "example@example.com"
-      }
-    };
+<br>
 
-    // --- کد برای نمایش داده‌ها ---
-    const state = { currentImageIndex: 0 };
+<label>
+<input type="checkbox" id="lag"> 🔥 حالت لگ (خیلی سنگین)
+</label>
 
-    function render() {
-      document.getElementById('title').textContent = propertyData.title;
-      document.getElementById('subtitle').textContent = propertyData.subtitle;
-      document.getElementById('address').textContent = propertyData.address;
-      document.getElementById('price').textContent = propertyData.price;
-      document.getElementById('area').textContent = propertyData.area;
-      document.getElementById('rooms').textContent = propertyData.rooms;
-      document.getElementById('status').textContent = propertyData.status;
-      document.getElementById('features').textContent = propertyData.features.join(' • ');
-      document.getElementById('id').textContent = propertyData.id;
-      document.getElementById('description').textContent = propertyData.description;
-      document.getElementById('contactName').textContent = propertyData.contact.name;
+<br>
 
-      const telLink = document.getElementById('telLink');
-      telLink.href = 'tel:' + propertyData.contact.phone.replace(/\s+/g, '');
-      telLink.textContent = propertyData.contact.phone;
+<button onclick="generate()">⚡ تولید (۲ ثانیه)</button>
+<button onclick="copyText()">📋 کپی</button>
 
-      const emailLink = document.getElementById('emailLink');
-      emailLink.href = 'mailto:' + propertyData.contact.email;
-      emailLink.textContent = propertyData.contact.email;
+<div id="status"></div>
+<div id="output"></div>
 
-      const img = document.getElementById('mainImage');
-      img.src = propertyData.images[state.currentImageIndex] || '';
+</div>
+
+<script>
+
+let fancy = [
+"ᡃ⃝","⃢","̸","⃟","✦","✧",
+"َ","ٌ","ـ","✺","✹",
+
+// 🔥 رشته سنگین اضافه شده
+`̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸2̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸2̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸3̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃢̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟̸⃟ٞ` 
+];
+
+document.getElementById("len").oninput = e=>{
+  document.getElementById("l1").innerText = e.target.value;
+}
+
+document.getElementById("chars").oninput = e=>{
+  document.getElementById("c1").innerText = e.target.value;
+}
+
+function heavyLoop(n){
+    let x = 0;
+    for(let i=0;i<n;i++){
+        x += Math.sqrt(i%10+1);
+    }
+    return x;
+}
+
+function build(base, len, chars, lag){
+    let out = "";
+
+    for(let i=0;i<len;i++){
+        out += base;
+
+        for(let j=0;j<8;j++){
+            out += fancy[Math.floor(Math.random()*fancy.length)];
+        }
+
+        if(lag){
+            heavyLoop(5000);
+        }
     }
 
-    document.getElementById('prev').addEventListener('click', () => {
-      state.currentImageIndex = (state.currentImageIndex - 1 + propertyData.images.length) % propertyData.images.length;
-      render();
-    });
-    document.getElementById('next').addEventListener('click', () => {
-      state.currentImageIndex = (state.currentImageIndex + 1) % propertyData.images.length;
-      render();
-    });
+    while(out.length < chars){
+        out += fancy[Math.floor(Math.random()*fancy.length)];
+        if(lag && Math.random() > 0.7){
+            heavyLoop(8000);
+        }
+    }
 
-    // initial render
-    render();
-  </script>
+    return out.slice(0, chars);
+}
+
+function generate(){
+    let text = document.getElementById("text").value;
+    let len = document.getElementById("len").value;
+    let chars = document.getElementById("chars").value;
+    let lag = document.getElementById("lag").checked;
+
+    document.getElementById("status").innerText = "⏳ در حال سنگین کردن...";
+
+    setTimeout(()=>{
+        let result = build(text, len, chars, lag);
+
+        document.getElementById("output").innerText = result;
+        document.getElementById("status").innerText = "✅ آماده شد";
+    },2000);
+}
+
+function copyText(){
+    navigator.clipboard.writeText(
+        document.getElementById("output").innerText
+    );
+    alert("کپی شد 📋");
+}
+
+</script>
+
 </body>
 </html>
