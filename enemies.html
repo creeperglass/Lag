@@ -6,23 +6,180 @@
   <title>دشمنان</title>
   <meta name="description" content="توضیحات خفن: صفحهٔ دشمنان — صرفاً شوخی و دمو. گوربا ونیکس فعلاً دشمنان من است.">
   <style>
-    :root{--bg:#060606;--card:#100606;--accent:#ff7b7b;--muted:#ffdede}
-    body{font-family: Tahoma, system-ui, sans-serif; background:linear-gradient(180deg,#050505,#0b0b0b); color:var(--muted); display:flex; align-items:center; justify-content:center; height:100vh; margin:0}
-    .card{max-width:820px; padding:36px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.35)); box-shadow:0 30px 70px rgba(0,0,0,0.6); text-align:center; border:1px solid rgba(255,80,80,0.06)}
-    h1{font-size:1.8rem; margin:0 0 10px; color:#fff}
-    p.lead{font-size:1.1rem; margin:0 0 16px; color:#ffdede}
-    p.badge{display:inline-block; padding:8px 14px; border-radius:999px; background:linear-gradient(90deg,var(--accent),#ff5c5c); color:#200; font-weight:700}
-    p.note{margin-top:18px; color:#ffbdbd}
-    footer{margin-top:18px; font-size:0.9rem; color:#bfbfbf}
+    :root{--bg:#050505;--card1:#6b0000;--card2:#8a1a1a;--accent:#ff6b6b;--muted:#ffdede}
+    *{box-sizing:border-box}
+    body{font-family: Tahoma, system-ui, sans-serif; background:linear-gradient(180deg,#050505,#0b0b0b); color:var(--muted); display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0; padding:24px}
+    .wrap{width:100%; max-width:960px}
+    header{margin-bottom:18px; text-align:center}
+    header h1{font-size:1.6rem;color:#fff;margin:0}
+    header p.lead{color:#ffdede;margin:6px 0 0}
+
+    /* Carousel area */
+    .carousel{position:relative; perspective:1400px; height:420px}
+    .cards{display:flex; gap:24px; align-items:center; justify-content:center; height:100%; transition:transform 400ms ease; will-change:transform}
+
+    .card{
+      width:320px; height:380px; border-radius:16px; padding:16px; color:#fff; position:relative; flex:0 0 auto; transform-style:preserve-3d; transition:transform 420ms cubic-bezier(.2,.9,.2,1), box-shadow 420ms ease; box-shadow:0 20px 40px rgba(0,0,0,0.6);
+      display:flex; flex-direction:column; align-items:center; justify-content:flex-start; overflow:hidden; text-align:center
+    }
+    .card .top{width:100%; height:220px; border-radius:12px; overflow:hidden; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.18)); display:flex; align-items:center; justify-content:center}
+    .card img{max-width:100%; max-height:100%; object-fit:cover; display:block}
+    .card h2{margin:12px 0 6px; font-size:1.15rem}
+    .card p.desc{margin:0 0 10px; color:#ffdede}
+    .card .set-img{margin-top:auto; width:100%}
+    .card input[type=url]{width:100%; padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); color:#fff}
+    .card button.set{margin-top:8px; width:100%; padding:10px; border-radius:10px; border:none; background:linear-gradient(90deg,var(--accent),#ff4757); color:#200; font-weight:700}
+
+    /* styles for each card color */
+    .card.gorba{background:linear-gradient(180deg,var(--card1),#3b0000)}
+    .card.venix{background:linear-gradient(180deg,var(--card2),#4b0000)}
+
+    /* active card bigger and slight rotate for 3d feeling */
+    .card.active{transform:translateY(-10px) translateZ(40px) scale(1.04); box-shadow:0 40px 80px rgba(0,0,0,0.75)}
+    .card.inactive{transform:scale(0.92) translateZ(0); opacity:0.86; filter:grayscale(0.06)}
+
+    /* arrows */
+    .nav{position:absolute; left:12px; right:12px; top:50%; transform:translateY(-50%); display:flex; justify-content:space-between; pointer-events:none}
+    .nav button{pointer-events:auto; background:rgba(0,0,0,0.35); border:1px solid rgba(255,255,255,0.03); color:#fff; padding:10px 12px; border-radius:999px}
+
+    /* small indicator */
+    .dots{display:flex; gap:8px; justify-content:center; margin-top:12px}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.12)}
+    .dot.active{background:var(--accent); box-shadow:0 0 12px rgba(255,100,100,0.25)}
+
+    /* responsive */
+    @media (max-width:540px){
+      .carousel{height:480px}
+      .cards{gap:14px}
+      .card{width:86%; height:420px}
+      .nav button{padding:8px}
+    }
+
+    /* remaining note style */
+    .note{margin-top:18px; color:#ffbdbd; text-align:center}
   </style>
 </head>
 <body>
-  <div class="card" role="main">
-    <h1>صفحهٔ دشمنان 🚩</h1>
-    <p class="lead">گوربا ونیکس فعلاً دشمنان من است</p>
-    <p class="badge">توضیحات خفن</p>
-    <p class="note">این صفحه برای شوخی و نمایش ساخته شده — حسِ فان داره و هدفش اذیت یا آسیب نیست. اگر با این پروژه کسی‌رو اذیت کنید، مسئولیتش با خودتونه 😅</p>
-    <footer>ــ ساخته شده با عشق و مود پرایوت :D</footer>
+  <div class="wrap">
+    <header>
+      <h1>صفحهٔ دشمنان 🚩</h1>
+      <p class="lead">گوربا ونیکس فعلاً دشمنان من است</p>
+    </header>
+
+    <div class="carousel" id="carousel">
+      <div class="nav">
+        <button id="prev" aria-label="قبلی">◀</button>
+        <button id="next" aria-label="بعدی">▶</button>
+      </div>
+
+      <div class="cards" id="cards">
+        <div class="card gorba active" data-index="0">
+          <div class="top">
+            <img id="img-gorba" src="" alt="عکس گوربا">
+          </div>
+          <h2>گوربا</h2>
+          <p class="desc">محافظِ دسته — کارت قرمز خفن</p>
+          <div class="set-img">
+            <input type="url" id="url-gorba" placeholder="لینک عکس (مثلاً عکس گربه) ...">
+            <button class="set" data-for="gorba">قرار دادن عکس</button>
+          </div>
+        </div>
+
+        <div class="card venix inactive" data-index="1">
+          <div class="top">
+            <img id="img-venix" src="" alt="عکس ونیکس">
+          </div>
+          <h2>ونیکس</h2>
+          <p class="desc">دوست/دشمنِ قرمز — کارت دوم</p>
+          <div class="set-img">
+            <input type="url" id="url-venix" placeholder="لینک عکس (مثلاً عکس گربه) ...">
+            <button class="set" data-for="venix">قرار دادن عکس</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dots" id="dots">
+      <div class="dot active" data-index="0"></div>
+      <div class="dot" data-index="1"></div>
+    </div>
+
+    <p class="note">این صفحه برای شوخی و نمایش ساخته شده — از آن برای اذیت یا آسیب استفاده نکنید. اگر کسی‌رو اذیت کنید، مسئولیتش با خودتونه 😅</p>
   </div>
+
+  <script>
+    const cardsEl = document.getElementById('cards');
+    const cardEls = Array.from(document.querySelectorAll('.card'));
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const dots = Array.from(document.querySelectorAll('.dot'));
+    let current = 0;
+
+    function show(index){
+      current = (index + cardEls.length) % cardEls.length;
+      cardEls.forEach((c,i)=>{
+        c.classList.toggle('active', i===current);
+        c.classList.toggle('inactive', i!==current);
+      });
+      dots.forEach((d,i)=> d.classList.toggle('active', i===current));
+      // center the active card in the cards container
+      const cardWidth = cardEls[0].getBoundingClientRect().width + parseFloat(getComputedStyle(cardsEl).gap || 24);
+      const offset = (cardWidth * current);
+      const containerWidth = cardsEl.getBoundingClientRect().width;
+      const shift = offset - (containerWidth - cardWidth)/2;
+      cardsEl.style.transform = `translateX(${-shift}px)`;
+    }
+
+    prevBtn.addEventListener('click', ()=> show(current-1));
+    nextBtn.addEventListener('click', ()=> show(current+1));
+
+    // dots clickable
+    dots.forEach(d=> d.addEventListener('click', ()=> show(Number(d.dataset.index))));
+
+    // swipe handling for touch devices
+    let startX = 0;
+    let isTouch = false;
+    const carousel = document.getElementById('carousel');
+    carousel.addEventListener('touchstart', (e)=>{
+      isTouch = true;
+      startX = e.touches[0].clientX;
+    }, {passive:true});
+
+    carousel.addEventListener('touchmove', (e)=>{
+      if(!isTouch) return;
+      const dx = e.touches[0].clientX - startX;
+      // small parallax while dragging
+      cardsEl.style.transform = `translateX(${ -((cardEls[0].getBoundingClientRect().width+24)*current) + dx }px)`;
+    }, {passive:true});
+
+    carousel.addEventListener('touchend', (e)=>{
+      if(!isTouch) return;
+      const endX = e.changedTouches[0].clientX;
+      const diff = endX - startX;
+      if(diff < -40) show(current+1);
+      else if(diff > 40) show(current-1);
+      else show(current);
+      isTouch=false;
+    });
+
+    // image set buttons
+    document.querySelectorAll('button.set').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const which = btn.dataset.for; // gorba or venix
+        const input = document.getElementById('url-'+which);
+        const img = document.getElementById('img-'+which);
+        const val = input.value.trim();
+        if(val){
+          img.src = val;
+        } else {
+          alert('لینک عکس رو وارد کن!');
+        }
+      });
+    });
+
+    // initialize layout after images load or on resize
+    window.addEventListener('load', ()=> show(0));
+    window.addEventListener('resize', ()=> show(current));
+  </script>
 </body>
 </html>
